@@ -22,13 +22,13 @@ io.on('connection', (socket) => {
         io.to(message.roomId).emit('receivedMsg', message.msg);
     });
 
-    socket.on('makeRoom', ({ roomId }) => {
+    socket.on('makeRoom', (roomId) => {
         socket.join(roomId)
     })
 
     socket.on('drawing', (draw) => {
-        console.log(draw)
-        socket.join(draw.roomId)
+        // console.log(draw)
+        // socket.join(draw.roomId)
         socket.broadcast.to(draw.roomId).emit('drawing', draw);
     });
 
