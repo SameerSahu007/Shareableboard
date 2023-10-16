@@ -16,19 +16,20 @@ const io = new Server(httpServer, {
 });
 
 io.on('connection', (socket) => {
+    console.log('A user connected')
     socket.on('message', (message) => {
-        console.log(message)
-        socket.join(message.roomId);
+        socket.join(roomId)
         io.to(message.roomId).emit('receivedMsg', message.msg);
     });
 
     socket.on('makeRoom', ({ roomId }) => {
-        console.log("Room Created")
         socket.join(roomId)
     })
 
-    socket.on('draw', (draw) => {
-        socket.broadcast.to(draw.roomId).emit('drawCanvas', draw);
+    socket.on('drawing', (draw) => {
+        console.log(draw)
+        socket.join(draw.roomId)
+        socket.broadcast.to(draw.roomId).emit('drawing', draw);
     });
 
     socket.on('disconnect', () => {
