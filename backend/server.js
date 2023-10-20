@@ -49,6 +49,7 @@ app.get('/getid', (req, res) => {
     res.send({ roomName: result });
 })
 
+PORT = process.env.PORT || 3000
 httpServer.listen(3001, () => {
     console.log('Server is running on http://localhost:3001');
 });
