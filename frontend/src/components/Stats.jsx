@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Stats({ socket }) {
     const [userCount, setUserCount] = useState({ count: 0 });
-    let location = useLocation();
-    const buttonText = `http://localhost:3000${location.pathname}`;
+    const buttonText = window.location.href;
 
     useEffect(() => {
         socket.on('updateClients', (clientsInRoom) => {

@@ -83,7 +83,6 @@ export default function Board({ socket, roomId }) {
     <div className='my-2 h-screen w-full bg-red pink  mx-auto max-w-xl '>
       <Stats socket={socket}/>
       <canvas className='border border-blue-900' width={600} height={500} ref={canvasRef} ></canvas>
-
     </div>
   )
 }

@@ -5,7 +5,7 @@ import axios from 'axios';
 export default function Home() {
   let navigate = useNavigate();
   const getid = () => {
-    axios.get('http://localhost:3001/getid')
+    axios.get('https://whiteboard-vj7y.onrender.com/getid')
       .then((response) => {
         const redirUrl = 'chat/' + response.data.roomName
         return navigate(redirUrl)

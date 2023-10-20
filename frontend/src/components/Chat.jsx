@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react'
 import io from 'socket.io-client';
 import { useParams } from 'react-router-dom';
 import ChatBox from './ChatBox';
 import Board from './Board';
 
-const socket = io('http://localhost:3001', {
+const socket = io('https://whiteboard-vj7y.onrender.com', {
   withCredentials: true,
   extraHeaders: {
     "my-custom-header": "abcd"
