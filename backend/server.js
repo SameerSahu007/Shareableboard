@@ -18,17 +18,16 @@ const io = new Server(httpServer, {
 io.on('connection', (socket) => {
     console.log('A user connected')
     socket.on('message', (message) => {
-        socket.join(roomId)
         io.to(message.roomId).emit('receivedMsg', message.msg);
     });
 
     socket.on('makeRoom', (roomId) => {
         socket.join(roomId)
+        const clientsInRoom = io.sockets.adapter.rooms.get(roomId).size;
+        io.to(roomId).emit('updateClients', clientsInRoom)
     })
 
     socket.on('drawing', (draw) => {
-        // console.log(draw)
-        // socket.join(draw.roomId)
         socket.broadcast.to(draw.roomId).emit('drawing', draw);
     });
 

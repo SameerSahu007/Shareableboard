@@ -7,7 +7,6 @@ export default function ChatBox({ socket, roomId }) {
   const sendMessage = (e) => {
     e.preventDefault()
     if (inputText.trim() !== '') {
-      // setMessages([...messages, inputText ]);
       const message = {
         msg: inputText,
         roomId: roomId
@@ -27,10 +26,11 @@ export default function ChatBox({ socket, roomId }) {
       <div className="w-60 h-[95%] border-2 border-black rounded m-2">
         <div className=" bg-purple-300 h-4/5 ">
           <h1 className="text-white text-4xl text-center text-bold border-b-2 border-white-500 ">Chats</h1>
-          {messages.map((message, index) => (
-            <div className="text-purple-300 text-xl bg-white my-2 mx-2 p-2 rounded">{message}</div>
-          ))}
-
+          <div className="overflow-y-auto h-[90%]">
+            {messages.map((message, index) => (
+              <div className="text-purple-300 text-xl bg-white my-2 mx-2 p-2 rounded ">{message}</div>
+            ))}
+          </div>
         </div>
 
         <div className="flex flex-col justify-center items-center">

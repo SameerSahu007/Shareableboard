@@ -1,7 +1,9 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react';
+import Stats from './Stats';
 
 export default function Board({ socket, roomId }) {
   const canvasRef = useRef(null);
+
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -17,7 +19,7 @@ export default function Board({ socket, roomId }) {
         x: e.clientX - canvas.offsetLeft,
         y: e.clientY - canvas.offsetTop,
         type: 'start',
-        roomId:  roomId
+        roomId: roomId
       });
     };
 
@@ -29,7 +31,7 @@ export default function Board({ socket, roomId }) {
         x: e.clientX - canvas.offsetLeft,
         y: e.clientY - canvas.offsetTop,
         type: 'draw',
-        roomId:  roomId
+        roomId: roomId
       });
     };
 
@@ -38,7 +40,7 @@ export default function Board({ socket, roomId }) {
       ctx.closePath();
       socket.emit('drawing', {
         type: 'end',
-        roomId:  roomId
+        roomId: roomId
       });
     };
 
@@ -55,7 +57,7 @@ export default function Board({ socket, roomId }) {
         ctx.lineTo(data.x, data.y);
         ctx.stroke();
       }
-      else{
+      else {
         ctx.stroke();
       }
     });
@@ -73,9 +75,15 @@ export default function Board({ socket, roomId }) {
       canvas.removeEventListener('mouseleave', stopDrawing);
     };
   }, []);
+
+
+ 
+
   return (
     <div className='my-2 h-screen w-full bg-red pink  mx-auto max-w-xl '>
-      <canvas className='border border-red-500' width={600} height={680} ref={canvasRef} ></canvas>
+      <Stats socket={socket}/>
+      <canvas className='border border-blue-900' width={600} height={500} ref={canvasRef} ></canvas>
+
     </div>
   )
 }
