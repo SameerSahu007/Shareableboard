@@ -1,2 +1,0 @@
-name : mindsphere
-create a CS roadmap sheet
