@@ -50,6 +50,6 @@ app.get('/getid', (req, res) => {
 })
 
 PORT = process.env.PORT || 3000
-httpServer.listen(3001, () => {
+httpServer.listen(PORT, () => {
     console.log('Server is running on http://localhost:3001');
 });
