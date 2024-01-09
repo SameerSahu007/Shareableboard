@@ -1,19 +1,22 @@
 import { useState, useEffect } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Socket } from 'socket.io-client';
 
+interface StatProps {
+    socket: Socket;
+}
 
-export default function Stats({ socket }) {
+const Stats: React.FC<StatProps> = ({ socket }) => {
     const [userCount, setUserCount] = useState({ count: 0 });
     const buttonText = window.location.href;
 
-    useEffect(() => {
-        socket.on('updateClients', (clientsInRoom) => {
-            setUserCount(prevState => {
-                return { ...prevState, count: clientsInRoom };
-            });
-        })
-    }, [])
+
+    socket.on('updateClients', (clientsInRoom) => {
+        setUserCount(prevState => {
+            return { ...prevState, count: clientsInRoom };
+        });
+    })
 
     const handleClick = () => {
         navigator.clipboard.writeText(buttonText)
@@ -39,3 +42,5 @@ export default function Stats({ socket }) {
 
     )
 }
+
+export default Stats

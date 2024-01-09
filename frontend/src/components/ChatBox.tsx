@@ -1,10 +1,17 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import {Socket} from 'socket.io-client';
 
-export default function ChatBox({ socket, roomId }) {
-  const [messages, setMessages] = useState([]);
-  const [inputText, setInputText] = useState('');
+interface ChatBoxProps {
+  socket: Socket;
+  roomId: string;
+}
 
-  const sendMessage = (e) => {
+
+const ChatBox:React.FC<ChatBoxProps> = ({ socket, roomId }) => {
+  const [messages, setMessages] = useState<string[]>([]);
+  const [inputText, setInputText] = useState<string>('');
+  
+  const sendMessage = (e: React.FormEvent) => {
     e.preventDefault()
     if (inputText.trim() !== '') {
       const message = {
@@ -17,7 +24,6 @@ export default function ChatBox({ socket, roomId }) {
   };
 
   socket.on('receivedMsg', (text) => {
-    console.log(text)
     setMessages([...messages, text])
   })
 
@@ -46,3 +52,5 @@ export default function ChatBox({ socket, roomId }) {
     </>
   );
 }
+
+export default ChatBox

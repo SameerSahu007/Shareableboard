@@ -10,14 +10,13 @@ interface BoardProps {
 const Board:React.FC<BoardProps> = ({ socket, roomId }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-
   useEffect(() => {
     const canvas = canvasRef.current!;
     const ctx = canvas.getContext('2d')!;
     let drawing = false;
     socket.emit('makeRoom', roomId)
 
-    const startDrawing = (e) => {
+    const startDrawing = (e: MouseEvent) => {
       drawing = true;
       ctx.beginPath();
       ctx.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
@@ -29,7 +28,7 @@ const Board:React.FC<BoardProps> = ({ socket, roomId }) => {
       });
     };
 
-    const draw = (e) => {
+    const draw = (e:MouseEvent) => {
       if (!drawing) return;
       ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
       ctx.stroke();
@@ -80,7 +79,7 @@ const Board:React.FC<BoardProps> = ({ socket, roomId }) => {
       canvas.removeEventListener('mouseup', endDrawing);
       canvas.removeEventListener('mouseleave', stopDrawing);
     };
-  }, []);
+  });
 
 
  
