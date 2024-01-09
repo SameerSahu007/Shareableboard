@@ -1,13 +1,19 @@
-import { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect} from 'react';
 import Stats from './Stats';
+import {Socket} from 'socket.io-client';
 
-export default function Board({ socket, roomId }) {
-  const canvasRef = useRef(null);
+interface BoardProps {
+  socket: Socket;
+  roomId: string;
+}
+
+const Board:React.FC<BoardProps> = ({ socket, roomId }) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
+    const canvas = canvasRef.current!;
+    const ctx = canvas.getContext('2d')!;
     let drawing = false;
     socket.emit('makeRoom', roomId)
 
@@ -86,3 +92,5 @@ export default function Board({ socket, roomId }) {
     </div>
   )
 }
+
+export default Board

@@ -1,18 +1,19 @@
 const express = require('express');
 const { createServer } = require("http");
-const { Server } = require("socket.io");
 const cors = require('cors')
-require('dotenv').config();
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 const httpServer = createServer(app);
+require('dotenv').config();
 
-const io = new Server(httpServer, {
+const io = require("socket.io")(httpServer, {
     cors: {
-        origin: process.env.ORIGIN,
-        credentials: true
+      origin: "http://localhost:3000",
+      methods: ["GET", "POST"],
+      allowedHeaders: ["my-custom-header"],
+      credentials: true
     }
 });
 
@@ -50,7 +51,7 @@ app.get('/getid', (req, res) => {
     res.send({ roomName: result });
 })
 
-PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 8000
 httpServer.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
 });
