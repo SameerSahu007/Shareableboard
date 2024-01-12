@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     fontFamily: {
       'roboto': ['Roboto', 'sans-serif'],
-      'roboto-mono': ['"Roboto Mono', 'serif'] // Ensure fonts with spaces have " " surrounding it.
+      'roboto-mono': ['Roboto Mono', 'serif'] // Ensure fonts with spaces have "
     },
     extend: {},
   },

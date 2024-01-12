@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Socket } from 'socket.io-client';
@@ -25,9 +25,9 @@ const Stats: React.FC<StatProps> = ({ socket }) => {
 
     return (<>
         <div className='my-2'>
-            <h1 className='text-2xl text-[#ff3939]'>Total users connected: {userCount.count} </h1>
-            <h1 className='text-xl text-[#ff3939]'>Share the link below to join more people!</h1>
-            <button onClick={handleClick} className="text-blue-800">{buttonText}</button>
+            <h1 className='text-2xl '>Total users connected: {userCount.count} </h1>
+            <h1 className='text-xl '>Share the link below to join more people!</h1>
+            <button onClick={handleClick} className="text-white italic">{buttonText}</button>
             <ToastContainer
                 position="top-center"
                 autoClose={2000}

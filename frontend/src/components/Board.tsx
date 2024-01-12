@@ -1,6 +1,7 @@
 import React, { useRef, useEffect} from 'react';
 import Stats from './Stats';
 import {Socket} from 'socket.io-client';
+import ToolBar from './ToolBar';
 
 interface BoardProps {
   socket: Socket;
@@ -16,13 +17,19 @@ const Board:React.FC<BoardProps> = ({ socket, roomId }) => {
     let drawing = false;
     socket.emit('makeRoom', roomId)
 
+    canvas.width = canvas.parentElement?.clientWidth ?? 0;
+    canvas.height = canvas.parentElement?.clientHeight ?? 0;
+
+
     const startDrawing = (e: MouseEvent) => {
       drawing = true;
       ctx.beginPath();
-      ctx.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+      const x = e.offsetX;
+      const y = e.offsetY;
+      ctx.moveTo(x,y);
       socket.emit('drawing', {
-        x: e.clientX - canvas.offsetLeft,
-        y: e.clientY - canvas.offsetTop,
+        x: x,
+        y: y,
         type: 'start',
         roomId: roomId
       });
@@ -30,11 +37,13 @@ const Board:React.FC<BoardProps> = ({ socket, roomId }) => {
 
     const draw = (e:MouseEvent) => {
       if (!drawing) return;
-      ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+      const x = e.offsetX;
+      const y = e.offsetY;
+      ctx.lineTo(x, y);
       ctx.stroke();
       socket.emit('drawing', {
-        x: e.clientX - canvas.offsetLeft,
-        y: e.clientY - canvas.offsetTop,
+        x: x,
+        y: y,
         type: 'draw',
         roomId: roomId
       });
@@ -79,15 +88,16 @@ const Board:React.FC<BoardProps> = ({ socket, roomId }) => {
       canvas.removeEventListener('mouseup', endDrawing);
       canvas.removeEventListener('mouseleave', stopDrawing);
     };
-  });
+  }, []);
 
 
  
 
   return (
-    <div className='my-2 h-screen w-full bg-red pink  mx-auto max-w-xl '>
+    <div className='my-2 h-[78%] w-full  pink  mx-auto max-w-xl font-roboto-mono'>
       <Stats socket={socket}/>
-      <canvas className='border border-blue-900' width={600} height={500} ref={canvasRef} ></canvas>
+      <ToolBar />
+      <canvas className='border border-blue-900 '  ref={canvasRef} ></canvas>
     </div>
   )
 }

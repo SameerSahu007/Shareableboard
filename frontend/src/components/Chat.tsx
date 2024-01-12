@@ -16,7 +16,7 @@ export default function Chat() {
   let { roomId } = useParams();
   socket.emit('makeRoom', roomId)
   return (
-    <div className='text-[#b2b2ff] h-screen flex flex-row '>
+    <div className='text-[#b2b2ff] h-screen flex flex-row bg-black'>
       <Board socket={socket} roomId={roomId as string} />
       <ChatBox socket={socket} roomId={roomId as string } />
     </div>

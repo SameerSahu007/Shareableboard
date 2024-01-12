@@ -29,7 +29,7 @@ const ChatBox:React.FC<ChatBoxProps> = ({ socket, roomId }) => {
 
   return (
     <>
-      <div className="w-60 h-[95%] border-2 border-black rounded m-2">
+      <div className="w-60 h-[95%] border-2 border-black rounded m-2 font-roboto-mono">
         <div className=" bg-purple-300 h-4/5 ">
           <h1 className="text-white text-4xl text-center text-bold border-b-2 border-white-500 ">Chats</h1>
           <div className="overflow-y-auto h-[90%]">
