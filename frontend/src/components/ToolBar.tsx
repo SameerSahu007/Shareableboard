@@ -1,12 +1,21 @@
 import { useState } from 'react'
 import { FaEraser } from "react-icons/fa";
 
-const ToolBar = () => {
+interface ToolBarProps {
+    colorRef: React.MutableRefObject<string>;
+}
+
+const ToolBar: React.FC<ToolBarProps> = ({colorRef}) => {
     const [selectedColor, setSelectedColor] = useState<String>('white');
 
     const handleColorClick = (color: string) => {
-        console.log(color)
         setSelectedColor(color);
+        if(color === 'eraser'){
+            colorRef.current = "black"
+        }else{
+
+            colorRef.current = color
+        }
     };
 
     return (

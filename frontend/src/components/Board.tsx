@@ -1,4 +1,4 @@
-import React, { useRef, useEffect} from 'react';
+import React, { useRef, useEffect, useState} from 'react';
 import Stats from './Stats';
 import {Socket} from 'socket.io-client';
 import ToolBar from './ToolBar';
@@ -10,52 +10,43 @@ interface BoardProps {
 
 const Board:React.FC<BoardProps> = ({ socket, roomId }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-
+  const colorRef = useRef<string>("white")
+  
   useEffect(() => {
     const canvas = canvasRef.current!;
     const ctx = canvas.getContext('2d')!;
     let drawing = false;
     socket.emit('makeRoom', roomId)
-
+    
     canvas.width = canvas.parentElement?.clientWidth ?? 0;
     canvas.height = canvas.parentElement?.clientHeight ?? 0;
 
-
     const startDrawing = (e: MouseEvent) => {
       drawing = true;
+      const currentColor = colorRef.current
+      ctx.strokeStyle = currentColor
       ctx.beginPath();
       const x = e.offsetX;
       const y = e.offsetY;
       ctx.moveTo(x,y);
-      socket.emit('drawing', {
-        x: x,
-        y: y,
-        type: 'start',
-        roomId: roomId
-      });
+      socket.emit('drawing', {x,y,type: 'start',roomId, currentColor});
     };
 
     const draw = (e:MouseEvent) => {
       if (!drawing) return;
+      const currentColor = colorRef.current
+      ctx.strokeStyle = currentColor
       const x = e.offsetX;
       const y = e.offsetY;
       ctx.lineTo(x, y);
       ctx.stroke();
-      socket.emit('drawing', {
-        x: x,
-        y: y,
-        type: 'draw',
-        roomId: roomId
-      });
+      socket.emit('drawing', {x,y,type: 'draw',roomId, currentColor});
     };
 
     const endDrawing = () => {
       drawing = false;
       ctx.closePath();
-      socket.emit('drawing', {
-        type: 'end',
-        roomId: roomId
-      });
+      socket.emit('drawing', {type: 'end',roomId: roomId});
     };
 
     const stopDrawing = () => {
@@ -64,6 +55,7 @@ const Board:React.FC<BoardProps> = ({ socket, roomId }) => {
 
     socket.on('drawing', (data) => {
       console.log('test socket 2 ')
+      ctx.strokeStyle = data.currentColor
       if (data.type === 'start') {
         ctx.beginPath();
         ctx.moveTo(data.x, data.y);
@@ -88,7 +80,7 @@ const Board:React.FC<BoardProps> = ({ socket, roomId }) => {
       canvas.removeEventListener('mouseup', endDrawing);
       canvas.removeEventListener('mouseleave', stopDrawing);
     };
-  }, []);
+  },[]);
 
 
  
@@ -96,7 +88,7 @@ const Board:React.FC<BoardProps> = ({ socket, roomId }) => {
   return (
     <div className='my-2 h-[78%] w-full  pink  mx-auto max-w-xl font-roboto-mono'>
       <Stats socket={socket}/>
-      <ToolBar />
+      <ToolBar colorRef={colorRef}/>
       <canvas className='border border-blue-900 '  ref={canvasRef} ></canvas>
     </div>
   )

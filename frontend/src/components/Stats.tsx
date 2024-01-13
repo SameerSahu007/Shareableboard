@@ -10,7 +10,7 @@ interface StatProps {
 const Stats: React.FC<StatProps> = ({ socket }) => {
     const [userCount, setUserCount] = useState({ count: 0 });
     const buttonText = window.location.href;
-
+    
 
     socket.on('updateClients', (clientsInRoom) => {
         setUserCount(prevState => {
