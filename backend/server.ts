@@ -10,16 +10,18 @@ app.use(cors());
 const httpServer = createServer(app);
 require('dotenv').config();
 
+const origin_url = process.env.ORIGIN;
+
 const io = require("socket.io")(httpServer, {
     cors: {
-      origin: "http://localhost:3000",
-      methods: ["GET", "POST"],
-      allowedHeaders: ["my-custom-header"],
-      credentials: true
+        origin: origin_url,
+        methods: ["GET", "POST"],
+        allowedHeaders: ["my-custom-header"],
+        credentials: true
     }
 });
 
-io.on('connection', (socket:Socket) => {
+io.on('connection', (socket: Socket) => {
     console.log('A user connected')
     socket.on('message', (message) => {
         io.to(message.roomId).emit('receivedMsg', message.msg);
@@ -40,7 +42,7 @@ io.on('connection', (socket:Socket) => {
     });
 });
 
-app.get('/getid', (req:any, res:any) => {
+app.get('/getid', (req: any, res: any) => {
     const length = 6;
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
