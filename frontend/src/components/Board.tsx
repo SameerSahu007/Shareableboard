@@ -89,7 +89,7 @@ const Board:React.FC<BoardProps> = ({ socket, roomId }) => {
     <div className='my-2 h-[78%] w-full pink  font-roboto-mono'>
       <Stats socket={socket}/>
       <ToolBar colorRef={colorRef}/>
-      <canvas className='border border-blue-900 '  ref={canvasRef} width={800} height={640} ></canvas>
+      <canvas className='border border-blue-900 '  ref={canvasRef} width={800} height={600} ></canvas>
     </div>
   )
 }
