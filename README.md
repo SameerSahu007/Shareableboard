@@ -44,29 +44,34 @@ https://github.com/SameerSahu007/Shareableboard/assets/29480670/10ab1380-57c7-41
     npm install
     ```
 
-4. Set up Frontend:
-5. 
+4. Set up Frontend & Backend:
    - Create a `.env` file in the `frontend` directory and add these urls:
 
      ```
      REACT_APP_BASE_URL=http://localhost:8000
      REACT_APP_GETID=http://localhost:8000/getid
      ```
+     
+    - Create a `.env` file in the `backend` directory and add these urls:
+      ```
+      ORIGIN=http://localhost:3000/
+      ```
 
-6. Start the backend server:
+
+5. Start the backend server:
 
     ```
     npm run dev
     ```
 
-7. Start the frontend development server:
+6. Start the frontend development server:
 
     ```
     cd ../frontend
     npm run start
     ```
 
-8. Open your browser and navigate to `http://localhost:3000` to access CodeBin.
+7. Open your browser and navigate to `http://localhost:3000` to access CodeBin.
 
 ## Contributing
 
