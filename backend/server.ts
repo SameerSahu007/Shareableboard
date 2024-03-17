@@ -11,14 +11,13 @@ const httpServer = createServer(app);
 require('dotenv').config();
 
 const origin_url = process.env.ORIGIN;
+console.log(origin_url)
 
 const io = require("socket.io")(httpServer, {
     cors: {
-        origin: origin_url,
-        methods: ["GET", "POST"],
-        allowedHeaders: ["my-custom-header"],
-        credentials: true
-    }
+        origin:  origin_url,
+        methods: ["GET", "POST"]
+      }
 });
 
 io.on('connection', (socket: Socket) => {

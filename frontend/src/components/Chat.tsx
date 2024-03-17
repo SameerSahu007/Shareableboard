@@ -5,12 +5,7 @@ import Board from './Board';
 
 const baseurl:string = process.env.REACT_APP_BASE_URL!
 
-const socket = io(baseurl, {
-  withCredentials: true,
-  extraHeaders: {
-    "my-custom-header": "abcd"
-  }
-});
+const socket = io(baseurl, { transports : ['websocket'] });
 
 export default function Chat() {
   let { roomId } = useParams();
