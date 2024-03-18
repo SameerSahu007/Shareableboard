@@ -1,6 +1,6 @@
 # ShareableBoard
 
-ShareableBoard is a tool where you can create and share boards with others. It allows you to collaborate in real-time by drawing, adding text, and arranging elements on the whiteboard. Share your ideas, plans, or sketches with anyone you want, making teamwork simpler and more efficient
+ShareableBoard is a tool where you can create and share boards with others. It allows you to collaborate in real-time by drawing on the whiteboard. Share your ideas, plans, or sketches with anyone you want, making teamwork simpler and more efficient
 
 
 
